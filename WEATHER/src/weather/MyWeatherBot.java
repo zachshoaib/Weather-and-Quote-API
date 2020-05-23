@@ -153,12 +153,13 @@ public class MyWeatherBot extends PircBot {
 	{
 		//creates json object
 		JsonObject object = new JsonParser().parse(json).getAsJsonObject();
-		String cityName = object.get("name").getAsString();
 		JsonObject main = object.getAsJsonObject("main");
 		//temp holds the temperature in kelvin
 		double temp = main.get("temp").getAsDouble();
 		//convert kelvin into fahrenheit
-		temp = (9/5)*(temp - 273) + 32;
+		//temp = (9/5)*(temp - 273) + 32;
+		temp = temp * 1.8;
+		temp = temp - 459.67;
 		//round decimal to 2 positions
 		temp = round(temp, 2);
 		//return temperature as a string
