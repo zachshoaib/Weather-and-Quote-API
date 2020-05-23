@@ -1,5 +1,5 @@
 package weather;
-import org.jibble.pircbot.*;
+
 
 public class MyBotMain {
     
