@@ -17,7 +17,7 @@ public class MyQuoteBot extends PircBot{
 	
 	//name the bot
 	public MyQuoteBot() {
-        this.setName("ZachQuoteBot5");
+        this.setName("ZachQuoteBot");
     } 
 	
 	//send message
