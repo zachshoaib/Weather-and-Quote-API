@@ -46,16 +46,19 @@ public class MyQuoteBot extends PircBot{
 	{
 		//make string url
 		String quoteURL = "https://breaking-bad-quotes.herokuapp.com/v1/quotes";
+
 		//make url object
 		URL url1 = new URL(quoteURL); 
 		HttpURLConnection conn1 = (HttpURLConnection) url1.openConnection();
 		conn1.setRequestMethod("GET");
 		BufferedReader rd1 = new BufferedReader(new InputStreamReader(conn1.getInputStream()));
 		String results = rd1.readLine();
+
 		//parse information
-		String quotess = parseJsonFunction(results);
+		String quotes = parseJsonFunction(results);
+
 		//send the message
-		sendMessage(channel, sender + ": Heres a quote from breaking bad " + quotess);
+		sendMessage(channel, sender + ": Heres a quote from breaking bad " + quotes);
 	}
 	
 	//parse the information
@@ -65,10 +68,13 @@ public class MyQuoteBot extends PircBot{
 		JsonArray entries = (JsonArray) new JsonParser().parse(json);
 		JsonElement quote = ((JsonObject)entries.get(0)).get("quote");
 		JsonElement author = ((JsonObject)entries.get(0)).get("author");
+
 		//get quote
 		String quote1 = String.valueOf(quote);
+
 		//get author
 		String author1 = String.valueOf(author);
+		
 		//combine
 		String total = quote1 + " " + author1;
 		return total; 

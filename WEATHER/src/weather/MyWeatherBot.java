@@ -23,13 +23,17 @@ public class MyWeatherBot extends PircBot {
     public void onMessage(String channel, String sender, String login, String hostname, String message)
     {
     	//pass message on ircnode to content
-        String content = message;
+		String content = message;
+		
         //this counts the number of words inputted by user
-        int wordcount = 0;
-        //divide content into seperate variable where there is a space
-        String command[] = content.split(" ");
+		int wordcount = 0;
+		
+        //divide content into seperate variables by spaces
+		String command[] = content.split(" ");
+		
         //this helps determine when there may be an error in userinput
-        wordcount = command.length;
+		wordcount = command.length;
+		
         //this determines if no valid userinput has been sent
         boolean notValid = true;
         
@@ -43,17 +47,19 @@ public class MyWeatherBot extends PircBot {
         //if first word is weather go to weather function
         else if(command[0].equalsIgnoreCase("weather"))
         {
-        	notValid = false;
+			notValid = false;
+			
         	if(wordcount == 1)
         	{
         		sendMessage(channel, sender + " Try again using the command format \"weather <cityname>\" or \"weather <zipcode>\"");
-        	}
+			}
+			
+			//build the url and get the request
 			try
 			{
-				//build the url and get the request
 				getWeather(channel, sender, command, wordcount);
 			} 			
-			//send error message if city or zipcode is not known 
+			//catch user error -> function called if user input can not be understood
 			catch (IOException e)
 			{
 				{
@@ -61,11 +67,12 @@ public class MyWeatherBot extends PircBot {
 					sendMessage(channel, sender + " The weather is not currently available you may have misspelled the city or zipcode");
 				}
 			}
-        }
+		}
+		
+		//do nothing here so that MyQuoteBot can handle this request alone
         else if(command[0].equalsIgnoreCase("quote"))
         {
         	notValid = false;
-        	//do nothing here do that MyQuoteBot can handle this request alone
         }
         
         //if command is not a registered command display this error message
@@ -75,7 +82,7 @@ public class MyWeatherBot extends PircBot {
         	sendMessage(channel, sender + ": type \"help\" for instructions");
         }
       
-    }//end send and read message function
+    }
     
     //this function shows instructions to user
     public void helpfunction(String channel, String sender)
@@ -84,6 +91,7 @@ public class MyWeatherBot extends PircBot {
     	sendMessage(channel, sender + ": To get a quote from breaking bad type \"quote\"");
     }
 
+	//build the url, get the temperature, and post it
 	public void getWeather(String channel, String sender, String[] command, int wordcount) throws IOException 
 	{
 		//unique api token
@@ -104,6 +112,7 @@ public class MyWeatherBot extends PircBot {
 
 		String userinput = command[1];
 
+		//if city name has 2 words in it
 		if(wordcount > 2)
 		{
 			userinput = command[1] + " " + command[2];
@@ -124,9 +133,9 @@ public class MyWeatherBot extends PircBot {
 		
 		//this function parses information from website
 		String temp = parseJsonFunction(result);
+
 		//send message to user containing temperature
 		sendMessage(channel, sender + ": The weather in " + userinput + " is " + temp + " degrees fahrenheit.");
-
 	}
     
     //this function parses the information using json tools to return the temperature
@@ -135,28 +144,26 @@ public class MyWeatherBot extends PircBot {
 		//creates json object
 		JsonObject object = new JsonParser().parse(json).getAsJsonObject();
 		JsonObject main = object.getAsJsonObject("main");
-		//temp holds the temperature in kelvin
+
+		//temp holds the temperature in kelvin -> convert it to fahrenheit
 		double temp = main.get("temp").getAsDouble();
-		//convert kelvin into fahrenheit
 		temp = temp * 1.8;
 		temp = temp - 459.67;
+
 		//round decimal to 2 positions
 		temp = round(temp, 2);
+
 		//return temperature as a string
 		String tempNew = Double.toString(temp);
 		return tempNew; 
 	}
 	
 	//this function rounds double temperature to 2 places
-	private static double round(double value, int places) {
+	private static double round(double value, int places)
+	 {
 	    if (places < 0) throw new IllegalArgumentException();
-	 
 	    BigDecimal bd = new BigDecimal(Double.toString(value));
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
 	}
-    
-    
-    
-    
 }
