@@ -1,8 +1,7 @@
 package weather;
 
-
 public class MyBotMain {
-    
+
     public static void main(String[] args) throws Exception {
         
         // Now start our bot up.
@@ -20,10 +19,7 @@ public class MyBotMain {
         // Join the #pircbot channel.
         bot.joinChannel("#zachsbots");
         bot2.joinChannel("#zachsbots");
-        
-       
-        
+
     }
-    
     
 }

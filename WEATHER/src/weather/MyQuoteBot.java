@@ -20,7 +20,7 @@ public class MyQuoteBot extends PircBot{
         this.setName("ZachQuoteBot");
     } 
 	
-	//send message
+	//find message and call quote function
 	public void onMessage(String channel, String sender, String login, String hostname, String message) 
 	{
 		//look for command "quote"
@@ -29,17 +29,15 @@ public class MyQuoteBot extends PircBot{
 			try {
 				//call function
 				getQuote(channel, sender);
-			} catch (IOException e) 
-			{
+			} catch (IOException e) {
 				//catch errors
 				e.printStackTrace();
 				{
 					sendMessage(channel, sender + " error occured");
 				}
-				
 			}
 		}
-	}//end send message function
+	}
 	
 	//retrieve quotes from online source
 	public void getQuote(String channel, String sender) throws IOException
@@ -80,17 +78,4 @@ public class MyQuoteBot extends PircBot{
 		return total; 
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

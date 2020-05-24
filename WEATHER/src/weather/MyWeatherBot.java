@@ -11,7 +11,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.jibble.pircbot.*;
 
-
 public class MyWeatherBot extends PircBot {
     
 	//name of bot
@@ -81,7 +80,6 @@ public class MyWeatherBot extends PircBot {
         	sendMessage(channel, sender + ": The command is not understood");
         	sendMessage(channel, sender + ": type \"help\" for instructions");
         }
-      
     }
     
     //this function shows instructions to user
