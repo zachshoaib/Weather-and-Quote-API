@@ -1,12 +1,11 @@
 package weather;
-import org.jibble.pircbot.*;
 
 public class MyBotMain {
-    
+
     public static void main(String[] args) throws Exception {
         
         // Now start our bot up.
-        MyBot bot = new MyBot();
+        MyWeatherBot bot = new MyWeatherBot();
         MyQuoteBot bot2 = new MyQuoteBot();
         
         // Enable debugging output.
@@ -18,12 +17,9 @@ public class MyBotMain {
         bot2.connect("irc.freenode.net");
 
         // Join the #pircbot channel.
-        bot.joinChannel("#zachbot6");
-        bot2.joinChannel("#zachbot6");
-        
-       
-        
+        bot.joinChannel("#zachsbots");
+        bot2.joinChannel("#zachsbots");
+
     }
-    
     
 }

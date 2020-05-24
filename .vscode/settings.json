@@ -1,0 +1,8 @@
+{
+    "java.dependency.packagePresentation": "flat",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "WEATHER/gson-2.6.2.jar",
+        "WEATHER/pircbot-1.5.0/pircbot.jar"
+    ]
+}
