@@ -11,4 +11,5 @@
  Bad. 
  
  To get the weather type 'Weather <cityname/zipcode'
+ 
  To receive a quote type 'Quote'
